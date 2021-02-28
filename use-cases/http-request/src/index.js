@@ -4,9 +4,9 @@ import requests from './utils/requests';
 export const func = async (params = { id: 1, headerParam: '123', bodyParam: 'abc' }) => {
   const { id, headerParam, bodyParam } = params;
 
-  const { url, method } = requests.todos(id);
+  const { url, method } = requests.todos;
   const request = await axios({
-    url,
+    url: url.replace('{ID}', id),
     method,
     headers: {
       headerParam,

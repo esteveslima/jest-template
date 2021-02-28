@@ -5,13 +5,12 @@ import axios from 'axios';
 import requests from '../src/utils/requests';
 
 jest.mock('axios');
-jest.mock('../src/utils/requests');
 
 // Import mocks(parameters, returns and implementations)
-import { functionMock, requestsMock, axiosMock } from './index.mock';
+import { sutMock, axiosMock } from './index.mock';
 
 // Import SUT
-import { func } from '../src/index';
+import { func as sut } from '../src/index';
 
 describe('HTTP request', () => {
   beforeAll(() => { });
@@ -19,32 +18,18 @@ describe('HTTP request', () => {
   afterEach(() => { });
   afterAll(() => { jest.restoreAllMocks(); });
 
-  it('expect to call the get request data with given id', async () => {
-    // Mocking external resources to match the test case before running the code
-    const requestsSpy = jest.spyOn(requests, 'todos').mockReturnValue(requestsMock.todos);
-    jest.spyOn(axios, 'default').mockReturnValue(axiosMock.RESULT.OK);
-    const params = functionMock.PARAMETERS.OK;
-
-    // Running SUT code with mocked resources to test it's results/execution
-    await func(params);
-
-    // Assert expectations to match test case
-    expect(requestsSpy).toBeCalledWith(params.id);
-  });
-
   it('expect to make request with given parameters', async () => {
     // Mocking external resources to match the test case before running the code
-    jest.spyOn(requests, 'todos').mockReturnValue(requestsMock.todos);
     const axiosSpy = jest.spyOn(axios, 'default').mockReturnValue(axiosMock.RESULT.OK);
-    const params = functionMock.PARAMETERS.OK;
+    const params = sutMock.PARAMETERS.OK;
 
     // Running SUT code with mocked resources to test it's results/execution
-    await func(params);
+    await sut(params);
 
     // Assert expectations to match test case
     const axiosConfig = {
-      url: requestsMock.todos.url,
-      method: requestsMock.todos.method,
+      url: requests.todos.url.replace('{ID}', params.id),
+      method: requests.todos.method,
       headers: {
         headerParam: params.headerParam,
       },
@@ -57,18 +42,16 @@ describe('HTTP request', () => {
 
   it('expect to use default parameters if none is given', async () => {
     // Mocking external resources to match the test case before running the code
-    const requestsSpy = jest.spyOn(requests, 'todos').mockReturnValue(requestsMock.todos);
     const axiosSpy = jest.spyOn(axios, 'default').mockReturnValue(axiosMock.RESULT.OK);
 
     // Running SUT code with mocked resources to test it's results/execution
-    await func();
+    await sut();
 
     // Assert expectations to match test case
-    const params = functionMock.PARAMETERS.DEFAULT;
-    expect(requestsSpy).toBeCalledWith(params.id);
+    const params = sutMock.PARAMETERS.DEFAULT;
     const axiosConfig = {
-      url: requestsMock.todos.url,
-      method: requestsMock.todos.method,
+      url: requests.todos.url.replace('{ID}', params.id),
+      method: requests.todos.method,
       headers: {
         headerParam: params.headerParam,
       },
@@ -81,12 +64,11 @@ describe('HTTP request', () => {
 
   it('expect to return request result data', async () => {
     // Mocking external resources to match the test case before running the code
-    jest.spyOn(requests, 'todos').mockReturnValue(requestsMock.todos);
     jest.spyOn(axios, 'default').mockReturnValue(axiosMock.RESULT.OK);
-    const params = functionMock.PARAMETERS.OK;
+    const params = sutMock.PARAMETERS.OK;
 
     // Running SUT code with mocked resources to test it's results/execution
-    const sutResult = await func(params);
+    const sutResult = await sut(params);
 
     // Assert expectations to match test case
     const requestResult = axiosMock.RESULT.OK;
@@ -95,13 +77,12 @@ describe('HTTP request', () => {
 
   it('expect to throw if request fails', async () => {
     // Mocking external resources to match the test case before running the code
-    jest.spyOn(requests, 'todos').mockReturnValue(requestsMock.todos);
     jest.spyOn(axios, 'default').mockImplementation(axiosMock.RESULT.ERROR);
-    const params = functionMock.PARAMETERS.OK;
+    const params = sutMock.PARAMETERS.OK;
 
     // Running SUT code with mocked resources to test it's results/execution...
     // ... And assert expectations to match test case(throw error)
-    await expect(func(params)).rejects.toThrow();
+    await expect(sut(params)).rejects.toThrow();
   });
 });
 

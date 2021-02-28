@@ -2,7 +2,7 @@
 
 import faker from 'faker';
 
-export const functionMock = {
+export const sutMock = {
   PARAMETERS: {
     OK: {
       id: faker.random.number(10),
@@ -14,13 +14,6 @@ export const functionMock = {
       headerParam: '123',
       bodyParam: 'abc',
     },
-  },
-};
-
-export const requestsMock = {
-  todos: {
-    url: 'https://some-request-endpoint.com/randomPath/123',
-    method: 'GET',
   },
 };
 
