@@ -1,0 +1,47 @@
+{
+  "name": "jest-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "case": "npx babel-node $INIT_CWD/src/index.js || npm run case:error-message",       
+    "test": "jest",
+    "test:coverage": "jest --collectCoverage",
+    "test:case": "jest $INIT_CWD",
+    "test:case:coverage": "jest $INIT_CWD --collectCoverage",
+    "case:error-message": "echo '\\033[31m \nThis script requires to be executed from within an use-case root folder\n'"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.[t|j]sx?$": "babel-jest"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/esteveslima/jest-template.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/esteveslima/jest-template/issues"
+  },
+  "homepage": "https://github.com/esteveslima/jest-template#readme",
+  "devDependencies": {
+    "@babel/core": "^7.13.1",
+    "@babel/node": "^7.13.0",
+    "@babel/plugin-transform-runtime": "^7.13.7",
+    "@babel/preset-env": "^7.13.5",
+    "@typescript-eslint/eslint-plugin": "^4.15.2",
+    "@typescript-eslint/parser": "^4.15.2",
+    "babel-jest": "^26.6.3",
+    "eslint": "^7.20.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "jest": "^26.6.3"
+  },
+  "dependencies": {
+    "@types/jest": "^26.0.20",
+    "axios": "^0.21.1",
+    "faker": "^5.4.0"
+  }
+}
