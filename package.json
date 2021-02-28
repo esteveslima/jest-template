@@ -5,10 +5,8 @@
   "main": "index.js",
   "scripts": {
     "case": "npx babel-node $INIT_CWD/src/index.js || npm run case:error-message",       
-    "test": "jest",
-    "test:coverage": "jest --collectCoverage",
-    "test:case": "jest $INIT_CWD",
-    "test:case:coverage": "jest $INIT_CWD --collectCoverage",
+    "test": "jest $INIT_CWD",
+    "test:coverage": "jest $INIT_CWD --collectCoverage",    
     "case:error-message": "echo '\\033[31m \nThis script requires to be executed from within an use-case root folder\n'"
   },
   "jest": {

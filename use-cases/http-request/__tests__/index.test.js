@@ -19,7 +19,7 @@ describe('HTTP request', () => {
   afterEach(() => { });
   afterAll(() => { jest.restoreAllMocks(); });
 
-  it('expect to get request data with given id', async () => {
+  it('expect to call the get request data with given id', async () => {
     // Mocking external resources to match the test case before running the code
     const requestsSpy = jest.spyOn(requests, 'todos').mockReturnValue(requestsMock.todos);
     jest.spyOn(axios, 'default').mockReturnValue(axiosMock.RESULT.OK);
