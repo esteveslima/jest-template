@@ -20,5 +20,5 @@ export const func = async (params = { id: 1, headerParam: '123', bodyParam: 'abc
   return result;
 };
 
-/* istanbul ignore next */ // IIFE to log code result for npm script
+/* istanbul ignore next */ // IIFE to log code result for npm script(ignored in tests)
 (async () => !process.env.JEST_WORKER_ID && console.log(await func()))();
