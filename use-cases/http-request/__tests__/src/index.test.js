@@ -13,9 +13,9 @@ import { sutMock, axiosMock } from '../__mocks__/src/index.mock';
 import { func as sut } from '../../src/index';
 
 describe('HTTP request - index', () => {
-  beforeAll(() => { });
+  beforeAll(() => { /* Do some extra special mocks(e.g.: unresolved imports) */ });
   beforeEach(() => { jest.resetAllMocks(); });
-  afterEach(() => { });
+  afterEach(() => { /* Do some extra cleanup */ });
   afterAll(() => { jest.restoreAllMocks(); });
 
   // Describing individual code parts behavior in function
